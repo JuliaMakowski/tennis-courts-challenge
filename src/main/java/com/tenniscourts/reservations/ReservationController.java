@@ -12,9 +12,10 @@ import static org.springframework.http.HttpStatus.OK;
 public class ReservationController extends BaseRestController {
 
     private final ReservationService reservationService;
-
+    @PostMapping("/create")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<Void> bookReservation(CreateReservationRequestDTO createReservationRequestDTO) {
-        return ResponseEntity.created(locationByEntity(reservationService.bookReservation(createReservationRequestDTO).getId())).build();
+        return ResponseEntity.created(reservationService.bookReservation(createReservationRequestDTO).getId());
     }
 
     @GetMapping()

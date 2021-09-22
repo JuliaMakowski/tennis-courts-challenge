@@ -1,8 +1,11 @@
 package com.tenniscourts.reservations;
 
 import com.tenniscourts.exceptions.EntityNotFoundException;
+import com.tenniscourts.exceptions.InvalidSchedulerException;
+import com.tenniscourts.schedules.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import springfox.documentation.swagger2.mappers.ModelMapper;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -16,8 +19,33 @@ public class ReservationService {
 
     private final ReservationMapper reservationMapper;
 
+    private int id =0;
+
+    private final ScheduleRepository scheduleRepository;
+
+    private final ScheduleService scheduleService;
+
     public ReservationDTO bookReservation(CreateReservationRequestDTO createReservationRequestDTO) {
-        throw new UnsupportedOperationException();
+
+        ScheduleDTO schedule = scheduleService.findSchedule(createReservationRequestDTO.getScheduleId());
+
+        if(schedule==null){
+            throw new InvalidSchedulerException("Invalid scheduler id");
+        } else {
+            ReservationDTO reservationDTO = ReservationDTO.builder()
+                    .id(id)
+                    .schedule(schedule)
+                    .reservationStatus(ReservationStatus.SCHEDULED)
+                    .previousReservation(null)
+                    .refundValue(0)
+                    .value(100.00)
+                    .scheduledId(createReservationRequestDTO.getScheduleId())
+                    .guestId(createReservationRequestDTO.getGuestId())
+                    .build();
+            id++;
+
+            return reservationDTO;
+        }
     }
 
     public ReservationDTO findReservation(Long reservationId) {

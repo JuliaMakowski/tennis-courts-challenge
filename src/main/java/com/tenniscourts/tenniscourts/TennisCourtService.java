@@ -1,6 +1,6 @@
 package com.tenniscourts.tenniscourts;
 
-import com.tenniscourts.exceptions.EntityNotFoundException;
+import sicom.tenniscourts.exceptions.EntityNotFoundException;
 import com.tenniscourts.schedules.ScheduleService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

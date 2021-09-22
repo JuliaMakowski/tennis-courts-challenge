@@ -1,5 +1,6 @@
 package com.tenniscourts.schedules;
-
+package com.tenniscourts.tenniscourts.*;
+import com.tenniscourts.tenniscourts.TennisCourtService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +15,19 @@ public class ScheduleService {
 
     private final ScheduleMapper scheduleMapper;
 
+    private final TennisCourtService tennisCourtService;
+
+    private int id =0;
+
     public ScheduleDTO addSchedule(Long tennisCourtId, CreateScheduleRequestDTO createScheduleRequestDTO) {
-        //TODO: implement addSchedule
+
+        ScheduleDTO schedule = ScheduleDTO.builder()
+                .id(id)
+                .tennisCourt(tennisCourtService.findTennisCourtById(tennisCourtId))
+                .tennisCourtId(tennisCourtId)
+                .startDateTime(createScheduleRequestDTO.getStartDateTime())
+                .endDateTime(createScheduleRequestDTO.getStartDateTime().plusHours(1))
+                .build();
         return null;
     }
 
