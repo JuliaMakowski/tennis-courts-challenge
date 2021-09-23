@@ -23,7 +23,6 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Builder
 public class Reservation extends BaseEntity<Long> {

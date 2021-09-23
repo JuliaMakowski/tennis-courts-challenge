@@ -19,6 +19,12 @@ public class TennisCourtController extends BaseRestController {
         return ResponseEntity.created(locationByEntity(tennisCourtService.addTennisCourt(tennisCourtDTO).getId())).build();
     }
 
+    @PostMapping("/update")
+    @CrossOrigin(origins = "*")
+    public ResponseEntity<Void> updateTennisCourt(TennisCourt tennisCourt, String name) {
+        return ResponseEntity.ok(tennisCourtService.updateTennisCourt(tennisCourt,name));
+    }
+
     //TODO: implement rest and swagger
     @GetMapping()
     @CrossOrigin(origins = "*")

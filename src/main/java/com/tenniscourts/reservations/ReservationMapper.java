@@ -8,19 +8,18 @@ import javax.ws.rs.MatrixParam;
 
 @Mapper(componentModel = "spring")
 public interface ReservationMapper {
-//    @Mapping(target = "previousReservation", source = "previousReservation")
 
-    @Mapping(target = "id", source = "id")
     @Mapping(target = "schedule", source = "schedule")
     @Mapping(target = "reservationStatus", source = "reservationStatus")
     @Mapping(target = "refundValue", source = "refundValue")
     @Mapping(target = "value", source = "value")
-    @Mapping(target = "schedule.id", source = "scheduledId")
-    @Mapping(target = "guest", source = "guestId")
-    Reservation map(ReservationDTO source);
+    @Mapping(target = "scheduledId", source = "schedule.id")
+    @Mapping(target = "guestId", source = "guest")
+    @Mapping(target = "previousReservation", source = "previousReservation")
+    ReservationDTO map(Reservation source);
 
     @InheritInverseConfiguration
-    ReservationDTO map(Reservation source);
+    Reservation map(ReservationDTO source);
 
     @Mapping(target = "guest.id", source = "guestId")
     @Mapping(target = "schedule.id", source = "scheduleId")

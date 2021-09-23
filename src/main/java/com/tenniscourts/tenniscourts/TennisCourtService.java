@@ -1,6 +1,6 @@
 package com.tenniscourts.tenniscourts;
 
-import sicom.tenniscourts.exceptions.EntityNotFoundException;
+import com.tenniscourts.exceptions.EntityNotFoundException;
 import com.tenniscourts.schedules.ScheduleService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,13 @@ public class TennisCourtService {
     private final TennisCourtMapper tennisCourtMapper;
 
     public TennisCourtDTO addTennisCourt(TennisCourtDTO tennisCourt) {
+
         return tennisCourtMapper.map(tennisCourtRepository.saveAndFlush(tennisCourtMapper.map(tennisCourt)));
+    }
+
+    public TennisCourtDTO updateTennisCourt(TennisCourt tennisCourt, String name){
+        tennisCourt.setName(tennisCourt.getName());
+        return tennisCourtRepository.save(tennisCourt);
     }
 
     public TennisCourtDTO findTennisCourtById(Long id) {

@@ -28,7 +28,9 @@ public class ScheduleService {
                 .startDateTime(createScheduleRequestDTO.getStartDateTime())
                 .endDateTime(createScheduleRequestDTO.getStartDateTime().plusHours(1))
                 .build();
-        return null;
+        id++;
+        scheduleRepository.save(scheduleMapper.map(schedule));
+        return schedule;
     }
 
     public List<ScheduleDTO> findSchedulesByDates(LocalDateTime startDate, LocalDateTime endDate) {
@@ -42,6 +44,7 @@ public class ScheduleService {
     }
 
     public List<ScheduleDTO> findSchedulesByTennisCourtId(Long tennisCourtId) {
+        // use stream
         return scheduleMapper.map(scheduleRepository.findByTennisCourt_IdOrderByStartDateTime(tennisCourtId));
     }
 }
