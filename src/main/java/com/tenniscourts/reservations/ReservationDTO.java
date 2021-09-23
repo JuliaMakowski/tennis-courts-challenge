@@ -23,7 +23,7 @@ public class ReservationDTO {
 
     private ScheduleDTO schedule;
 
-    private String reservationStatus;
+    private ReservationStatus reservationStatus;
 
     private ReservationDTO previousReservation;
 

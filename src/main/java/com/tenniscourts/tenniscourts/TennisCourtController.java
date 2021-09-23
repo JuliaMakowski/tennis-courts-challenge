@@ -13,7 +13,7 @@ public class TennisCourtController extends BaseRestController {
     private final TennisCourtService tennisCourtService;
 
     //TODO: implement rest and swagger
-    @PostMapping("/add")
+    @PostMapping("/create")
     @CrossOrigin(origins = "*")
     public ResponseEntity<Void> addTennisCourt(TennisCourtDTO tennisCourtDTO) {
         return ResponseEntity.created(locationByEntity(tennisCourtService.addTennisCourt(tennisCourtDTO).getId())).build();
@@ -27,7 +27,7 @@ public class TennisCourtController extends BaseRestController {
     }
 
     //TODO: implement rest and swagger
-    @GetMapping("/scheduler-id")
+    @GetMapping("/scheduler")
     @CrossOrigin(origins = "*")
     public ResponseEntity<TennisCourtDTO> findTennisCourtWithSchedulesById(Long tennisCourtId) {
         return ResponseEntity.ok(tennisCourtService.findTennisCourtWithSchedulesById(tennisCourtId));

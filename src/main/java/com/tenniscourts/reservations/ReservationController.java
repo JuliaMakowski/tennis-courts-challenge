@@ -15,7 +15,7 @@ public class ReservationController extends BaseRestController {
     @PostMapping("/create")
     @CrossOrigin(origins = "*")
     public ResponseEntity<Void> bookReservation(CreateReservationRequestDTO createReservationRequestDTO) {
-        return ResponseEntity.created(reservationService.bookReservation(createReservationRequestDTO).getId());
+        return ResponseEntity.created(locationByEntity(reservationService.bookReservation(createReservationRequestDTO).getId())).build();
     }
 
     @GetMapping()

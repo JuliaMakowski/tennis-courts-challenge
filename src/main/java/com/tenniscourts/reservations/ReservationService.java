@@ -19,7 +19,7 @@ public class ReservationService {
 
     private final ReservationMapper reservationMapper;
 
-    private int id =0;
+    private long id =0;
 
     private final ScheduleRepository scheduleRepository;
 
@@ -37,13 +37,13 @@ public class ReservationService {
                     .schedule(schedule)
                     .reservationStatus(ReservationStatus.SCHEDULED)
                     .previousReservation(null)
-                    .refundValue(0)
-                    .value(100.00)
+                    .refundValue(new BigDecimal("0"))
+                    .value(new BigDecimal("100.0"))
                     .scheduledId(createReservationRequestDTO.getScheduleId())
                     .guestId(createReservationRequestDTO.getGuestId())
                     .build();
             id++;
-
+            reservationRepository.save(reservationMapper.map(reservationDTO));
             return reservationDTO;
         }
     }
@@ -103,11 +103,6 @@ public class ReservationService {
             "Cannot reschedule to the same slot.*/
     public ReservationDTO rescheduleReservation(Long previousReservationId, Long scheduleId) {
         Reservation previousReservation = cancel(previousReservationId);
-
-        if (scheduleId.equals(previousReservation.getSchedule().getId())) {
-            throw new IllegalArgumentException("Cannot reschedule to the same slot.");
-        }
-
         previousReservation.setReservationStatus(ReservationStatus.RESCHEDULED);
         reservationRepository.save(previousReservation);
 
